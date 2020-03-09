@@ -4,7 +4,7 @@
 
 int main() {
     // Creating a new list
-    double_linked_list *list = new double_linked_list();
+    auto *list = new double_linked_list();
     std::cout << "Adding \"5\" to front" << std::endl;
     list->insert_front(5);
     std::cout << "Adding \"10\" to front" << std::endl;
