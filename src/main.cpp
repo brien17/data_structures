@@ -1,5 +1,6 @@
 #include <iostream>
 #include "double_linked_list.h"
+#include "word_tree.h"
 
 
 int main() {
@@ -40,8 +41,17 @@ int main() {
     std::cout << "Removing the front pointer from the list" << std::endl;
     std::cout << list->remove_front_pntr() << std::endl;
     std::cout << "List should look like [" << pnt1 << "]" << std::endl;
+    std::cout << "Checking if the list is empty (should be 0)" <<std::endl;
+    std::cout << list->empty() << std::endl;
     std::cout << "Removing the rear pointer from the list" << std::endl;
     std::cout << list->remove_rear_pntr()<< std::endl;
+    std::cout << "Checking if the list is empty (should be 1)" <<std::endl;
+    std::cout << list->empty() << std::endl;
+
+    word_tree *w = new word_tree();
+    tree_node *n = new tree_node();
+    tree_node **x = &n;
+    w->insert((w->getRoot()),"sadf",10);
 
     return 0;
 }

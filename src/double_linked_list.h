@@ -21,7 +21,9 @@ private:
     node *front;
     node *rear;
     int size;
-    void (*error_function) ();
+
+    void (*error_function)();
+
 public:
     double_linked_list() {
         front = nullptr;
@@ -36,9 +38,9 @@ public:
 
     void insert_front(int new_data) {
         node *n = new node;
-        n -> is_int = true;
+        n->is_int = true;
         // Adding the data
-        n -> int_data = new_data;
+        n->int_data = new_data;
         if (front == nullptr) { // Case empty list;
             // Setting the front and rear
             front = rear = n;
@@ -46,10 +48,10 @@ public:
             size++;
         } else { // Case one or more elements
             // Setting next and prev in new node
-            n -> next = front;
-            n -> prev = nullptr;
+            n->next = front;
+            n->prev = nullptr;
             // Setting previous in second node in list
-            front -> prev = n;
+            front->prev = n;
             // Setting front
             front = n;
             // Incrementing size
@@ -59,9 +61,9 @@ public:
 
     void insert_front(void *new_data) {
         node *n = new node;
-        n ->is_int = false;
+        n->is_int = false;
         // Adding the data
-        n -> pnt_data = new_data;
+        n->pnt_data = new_data;
         if (front == nullptr) { // Case empty list;
             // Setting the front and rear
             front = rear = n;
@@ -69,10 +71,10 @@ public:
             size++;
         } else { // Case one or more elements
             // Setting next and prev in new node
-            n -> next = front;
-            n -> prev = nullptr;
+            n->next = front;
+            n->prev = nullptr;
             // Setting previous in second node in list
-            front -> prev = n;
+            front->prev = n;
             // Setting front
             front = n;
             // Incrementing size
@@ -82,9 +84,9 @@ public:
 
     void insert_rear(int new_data) {
         node *n = new node;
-        n -> is_int = true;
+        n->is_int = true;
         // Adding the data
-        n -> int_data = new_data;
+        n->int_data = new_data;
         if (rear == nullptr) { // Case empty list
             // Setting the front and rear
             front = rear = n;
@@ -92,10 +94,10 @@ public:
             size++;
         } else { // Case one or more elements
             // Setting previous nad next in new node
-            n -> next = nullptr;
-            n -> prev = rear;
+            n->next = nullptr;
+            n->prev = rear;
             // Setting the next of the second to last node
-            rear -> next = n;
+            rear->next = n;
             // Setting rear to the new node
             rear = n;
             // Incrementing size
@@ -105,9 +107,9 @@ public:
 
     void insert_rear(void *new_data) {
         node *n = new node;
-        n -> is_int = false;
+        n->is_int = false;
         // Adding the data
-        n -> pnt_data = new_data;
+        n->pnt_data = new_data;
         if (rear == nullptr) { // Case empty list
             // Setting the front and rear
             front = rear = n;
@@ -115,10 +117,10 @@ public:
             size++;
         } else { // Case one or more elements
             // Setting previous nad next in new node
-            n -> next = nullptr;
-            n -> prev = rear;
+            n->next = nullptr;
+            n->prev = rear;
             // Setting the next of the second to last node
-            rear -> next = n;
+            rear->next = n;
             // Setting rear to the new node
             rear = n;
             // Incrementing size
@@ -135,7 +137,7 @@ public:
             }
         } else if (front == rear) { // Case one item
             // Getting data
-            hold = front -> int_data;
+            hold = front->int_data;
             // Deleting front
             delete front;
             // Setting front and rear to null
@@ -144,20 +146,20 @@ public:
             size--;
         } else { // Case two or more
             // Getting data
-            hold = front -> int_data;
+            hold = front->int_data;
             // Setting front to next node
-            front = front -> next;
+            front = front->next;
             // Deleting front node
-            delete front -> prev;
+            delete front->prev;
             // Setting previous of next node to null
-            front -> prev = nullptr;
+            front->prev = nullptr;
             // Decrementing size
             size--;
         }
         return hold;
     }
 
-    void* remove_front_pntr() {
+    void *remove_front_pntr() {
         void *hold = nullptr;
         if (front == nullptr) { // Case empty list
             // Make case for this later
@@ -166,7 +168,7 @@ public:
             }
         } else if (front == rear) { // Case one item
             // Getting data
-            hold = front -> pnt_data;
+            hold = front->pnt_data;
             // Deleting front
             delete front;
             // Setting front and rear to null
@@ -175,13 +177,13 @@ public:
             size--;
         } else { // Case two or more
             // Getting data
-            hold = front -> pnt_data;
+            hold = front->pnt_data;
             // Setting front to next node
-            front = front -> next;
+            front = front->next;
             // Deleting front node
-            delete front -> prev;
+            delete front->prev;
             // Setting previous of next node to null
-            front -> prev = nullptr;
+            front->prev = nullptr;
             // Decrementing size
             size--;
         }
@@ -219,7 +221,7 @@ public:
         return hold;
     }
 
-    void* remove_rear_pntr() {
+    void *remove_rear_pntr() {
         void *hold = nullptr;
         if (rear == nullptr) { // Case empty list
             // Make case for this later
@@ -256,9 +258,9 @@ public:
 
     int empty() {
         if (rear == nullptr) { // If the list is empty
-            return 0;
-        } else { // If the list is not empty
             return 1;
+        } else { // If the list is not empty
+            return 0;
         }
     }
 
