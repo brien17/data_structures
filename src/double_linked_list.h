@@ -131,10 +131,7 @@ public:
     int remove_front_int() {
         int hold = 0;
         if (front == nullptr) { // Case empty list
-            // Make case for this later
-            if (error_function != nullptr) {
-                error_function();
-            }
+                return -1;
         } else if (front == rear) { // Case one item
             // Getting data
             hold = front->int_data;
