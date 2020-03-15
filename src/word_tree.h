@@ -7,6 +7,16 @@
 
 
 #include "double_linked_list.h"
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <sstream>
+#include <cmath>
+#include <algorithm>
+#include <cctype>
+
+
 
 
 struct tree_node {
@@ -22,7 +32,7 @@ private:
 
 public:
     // Double pointer to the root of the tree
-    tree_node **root = nullptr;
+    tree_node *root = nullptr;
 
     // Get the max of 2 numbers
     int max(int a, int b) {
@@ -73,40 +83,30 @@ public:
 
     // Double rotate to the left
     void double_rotate_left(tree_node **T) {
-        single_rotate_right(&((*T)->Rchild));
+        single_rotate_right(&((*T)->Lchild));
         single_rotate_left(T);
     }
 
     // Insert into the tree a word and the line number that the word is on
-    void insert(tree_node **T, std::string word_to_insert, int line_number) {
+    void insert(tree_node **T, std::string const &word_to_insert, int line_number) {
+        // Making all of the words lower case
+        std::transform(word_to_insert.begin(), word_to_insert.end(), word_to_insert.begin(), ::tolower);
         if (root == nullptr) { // If this is the first node in the tree
-            std::cout <<5;
-            tree_node *temp = new tree_node();
-            std::cout <<5;
+            auto *temp = new tree_node;
             (temp)->word = word_to_insert;
-            std::cout <<5;
             (temp)->lines = new double_linked_list();
             (temp)->lines->insert_rear(line_number);
-            std::cout <<5;
             (temp)->Lchild = (temp)->Rchild = nullptr;
-            std::cout <<5;
-            root = &temp;
-        } else if (*T == nullptr) { // If there is nothing where the data belongs
-            std::cout << 1 << std::endl;
-            (*T) = new tree_node();
-            std::cout << 1 << std::endl;
+            root = temp;
+        } else if ((*T) == nullptr) { // If there is nothing where the data belongs
+            (*T) = new tree_node;
             (*T)->word = word_to_insert;
-            std::cout << 1 << std::endl;
             (*T)->lines = new double_linked_list();
             (*T)->lines->insert_rear(line_number);
-            std::cout << 1 << std::endl;
             (*T)->Lchild = (*T)->Rchild = nullptr;
-            std::cout << 1 << std::endl;
-        } else if (word_to_insert.compare((*T)->word) == 0) { // Data goes here
-            std::cout << 2 << std::endl;
+        } else if (word_to_insert == (*T)->word) { // Data goes here
             (*T)->lines->insert_rear(line_number);
         } else if (word_to_insert.compare((*T)->word) == 1) { // Go right
-            std::cout << 3 << std::endl;
             insert((&((*T)->Lchild)), word_to_insert, line_number);
             if (node_height((*T)->Rchild) - node_height((*T)->Lchild) == 2) { // Tree is out of balance
                 if (word_to_insert.compare((*T)->Rchild->word) == 1) { //
@@ -116,7 +116,6 @@ public:
                 }
             }
         } else {
-            std::cout << 4 << std::endl;
             insert(&((*T)->Rchild), word_to_insert, line_number);
             if (node_height((*T)->Lchild) - node_height((*T)->Rchild) == 2) { // Tree is out of balance
                 if (word_to_insert.compare((*T)->Lchild->word) == -1) { //
@@ -128,24 +127,53 @@ public:
         }
     }
 
-    void print_tree(tree_node **T) {
-        std::cout << "0";
-        if (*T != nullptr) {
-            std::cout << (*T)->word.c_str() << " : ";
-            std::cout << "1";
+    void print_tree(tree_node *T) {
+        if (T != nullptr) {
+            print_tree((T)->Rchild);
+
+            std::cout << (T)->word.c_str() << " : ";
             while (true) {
-                std::cout << "2";
-                int line = (*T)->lines->remove_front_int();
-                std::cout << "3";
+                int line = (T)->lines->remove_front_int();
                 if (line == -1) {
                     break;
                 } else {
                     std::cout << line << ", ";
                 }
             }
-            std::cout << "4";
-            print_tree(&((*T)->Lchild));
-            print_tree(&((*T)->Rchild));
+            std::cout << '\n';
+
+            print_tree((T)->Lchild);
+        }
+    }
+
+    void read_file(std::string const &file_path) {
+        std::string line;
+        std::ifstream my_file(file_path);
+        int line_number = 0;
+        if (my_file.is_open()) {
+
+            while (getline(my_file, line)) {
+                // incrementing line number
+                line_number++;
+
+                // Creating variable to hold word
+                std::string word;
+                // Getting stream
+                std::stringstream stream(line);
+                // Splitting on whitespace for string
+                while (getline(stream, word, ' ')) {
+                    insert(&root, word, line_number);
+                }
+
+            }
+
+            print_tree(root);
+            my_file.close();
+
+        } else {
+
+            std::cout << "Unable to open file";
+
         }
     }
 };

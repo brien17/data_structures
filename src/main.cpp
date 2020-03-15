@@ -49,11 +49,6 @@ int main() {
 //    std::cout << list->empty() << std::endl;
 
     word_tree *w = new word_tree();
-    w->insert((w->root),"sadf",10);
-    tree_node ** x = w->root;
-    std::cout << (*x)->lines->remove_front_int();
-//    w->insert((w->getRoot()),"sadf",11);
-//    w->insert((w->getRoot()),"saaf",10);
-    w->print_tree(w->root);
+    w->read_file("../test.txt");
     return 0;
 }
