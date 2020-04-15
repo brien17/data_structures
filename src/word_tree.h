@@ -88,7 +88,7 @@ public:
     }
 
     // Insert into the tree a word and the line number that the word is on
-    void insert(tree_node **T, std::string const &word_to_insert, int line_number) {
+    void insert(tree_node **T, std::string word_to_insert, int line_number) {
         // Making all of the words lower case
         std::transform(word_to_insert.begin(), word_to_insert.end(), word_to_insert.begin(), ::tolower);
         if (root == nullptr) { // If this is the first node in the tree
@@ -131,13 +131,15 @@ public:
         if (T != nullptr) {
             print_tree((T)->Rchild);
 
-            std::cout << (T)->word.c_str() << " : ";
+            std::cout << (T)->word.c_str() << " : " << (T)->lines->remove_front_int();
+
+
             while (true) {
                 int line = (T)->lines->remove_front_int();
                 if (line == -1) {
                     break;
                 } else {
-                    std::cout << line << ", ";
+                    std::cout << ", " << line;
                 }
             }
             std::cout << '\n';

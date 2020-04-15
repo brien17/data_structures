@@ -1,9 +1,12 @@
 #include <iostream>
 #include "double_linked_list.h"
 #include "word_tree.h"
-
+#include "graph.h"
+#include "path_finder.h"
+#include "merge_sorter.h"
 
 int main() {
+//    // Homework 1
 //    // Creating a new list
 //    auto *list = new double_linked_list();
 //    std::cout << "Adding \"5\" to front" << std::endl;
@@ -47,8 +50,23 @@ int main() {
 //    std::cout << list->remove_rear_pntr()<< std::endl;
 //    std::cout << "Checking if the list is empty (should be 1)" <<std::endl;
 //    std::cout << list->empty() << std::endl;
+//
+//    // Homework 2
+//    word_tree *w = new word_tree();
+//    w->read_file("../test.txt");
+//    auto my_graph = new graph();
+//    my_graph->add_vertex();
+//    my_graph->add_vertex();
+//    my_graph->add_vertex();
+//    my_graph->add_connection(1,2);
+//    my_graph->add_connection(1,3);
+//    my_graph->add_connection(2,3);
+//    my_graph->print();
+//    auto p = new path_finder();
+//    p->unweighted(1, *my_graph);
+//
+//  Homework 3
 
-    word_tree *w = new word_tree();
-    w->read_file("../test.txt");
+
     return 0;
 }
