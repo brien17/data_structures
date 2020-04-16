@@ -18,10 +18,10 @@ struct Table {
 class path_finder {
 public:
     void unweighted(int starting_vertex, graph G) {
-        std::vector<double_linked_list> graph = G.get_graph();
+        std::vector<graph_node> graph = G.get_graph();
         queue <int> Q;
         int W,V;
-        double_linked_list p;
+        graph_node p;
         int size = G.get_size() + 1;
         std::vector<Table> T; // Make this a vector c++ arrays are cancer
         for (int i = 1; i < size; i++) {
@@ -34,7 +34,7 @@ public:
             V = Q.front();
             p = graph[V];
             while (true) {
-                int temp = p.remove_front_int();
+                int temp = p.connections.remove_front_int();
                 if (temp == -1) {
                     break;
                 } else {

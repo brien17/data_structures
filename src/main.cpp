@@ -4,6 +4,7 @@
 #include "graph.h"
 #include "path_finder.h"
 #include "merge_sorter.h"
+#include "binary_searcher.h"
 
 int main() {
 //    // Homework 1
@@ -66,6 +67,21 @@ int main() {
 //    p->unweighted(1, *my_graph);
 //
 //  Homework 3
+    std::vector<std::string> A;
+    A.push_back("ste");
+    A.push_back("ave");
+
+
+
+    merge_sorter::sort(A);
+
+    std::cout << A[0] << A[1] << std::endl;
+
+    graph *g = new graph();
+    g->read_file("../mapcampus.txt");
+
+    std::vector<graph_node> vec = g->get_graph();
+
 
 
     return 0;

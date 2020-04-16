@@ -10,6 +10,7 @@
 struct node {
     int int_data = 0;
     void *pnt_data = nullptr;
+    std::string string_data = "";
     bool is_int;
     node *next = nullptr;
     node *prev = nullptr;
@@ -82,6 +83,30 @@ public:
         }
     }
 
+    void insert_front(std::string new_data) {
+        node *n = new node;
+        n->is_int = false;
+        // Adding the data
+        n->string_data = new_data;
+        if (front == nullptr) { // Case empty list;
+            // Setting the front and rear
+            front = rear = n;
+            // Incrementing size
+            size++;
+        } else { // Case one or more elements
+            // Setting next and prev in new node
+            n->next = front;
+            n->prev = nullptr;
+            // Setting previous in second node in list
+            front->prev = n;
+            // Setting front
+            front = n;
+            // Incrementing size
+            size++;
+        }
+    }
+
+
     void insert_rear(int new_data) {
         node *n = new node;
         n->is_int = true;
@@ -109,7 +134,30 @@ public:
         node *n = new node;
         n->is_int = false;
         // Adding the data
-        n->pnt_data = new_data;
+        n->pnt_data = &new_data;
+        if (rear == nullptr) { // Case empty list
+            // Setting the front and rear
+            front = rear = n;
+            // Incrementing size
+            size++;
+        } else { // Case one or more elements
+            // Setting previous nad next in new node
+            n->next = nullptr;
+            n->prev = rear;
+            // Setting the next of the second to last node
+            rear->next = n;
+            // Setting rear to the new node
+            rear = n;
+            // Incrementing size
+            size++;
+        }
+    }
+
+    void insert_rear(std::string new_data) {
+        node *n = new node;
+        n->is_int = true;
+        // Adding the data
+        n->string_data = new_data;
         if (rear == nullptr) { // Case empty list
             // Setting the front and rear
             front = rear = n;
@@ -187,6 +235,34 @@ public:
         return hold;
     }
 
+    std::string remove_front_str() {
+        std::string hold = "";
+        if (front == nullptr) { // Case empty list
+            return "";
+        } else if (front == rear) { // Case one item
+            // Getting data
+            hold = front->string_data;
+            // Deleting front
+            delete front;
+            // Setting front and rear to null
+            front = rear = nullptr;
+            // Decrementing size
+            size--;
+        } else { // Case two or more
+            // Getting data
+            hold = front->string_data;
+            // Setting front to next node
+            front = front->next;
+            // Deleting front node
+            delete front->prev;
+            // Setting previous of next node to null
+            front->prev = nullptr;
+            // Decrementing size
+            size--;
+        }
+        return hold;
+    }
+
     int remove_rear_int() {
         int hold = 0;
         if (rear == nullptr) { // Case empty list
@@ -237,6 +313,37 @@ public:
         } else { // Case two or more
             // Getting data
             hold = rear->pnt_data;
+            // Setting rear to second to last item
+            rear = rear->prev;
+            // Deleting last item
+            delete rear->next;
+            // Setting next in rear to null
+            rear->next = nullptr;
+            // Decrementing size
+            size--;
+        }
+        return hold;
+    }
+
+    std::string remove_rear_str() {
+        std::string hold = "";
+        if (rear == nullptr) { // Case empty list
+            // Make case for this later
+            if (error_function != nullptr) {
+                error_function();
+            }
+        } else if (front == rear) { // Case one item
+            // Getting data
+            hold = rear->string_data;
+            // Deleting node
+            delete rear;
+            // Making front and rear null
+            front = rear = nullptr;
+            // Decrementing size
+            size--;
+        } else { // Case two or more
+            // Getting data
+            hold = rear->string_data;
             // Setting rear to second to last item
             rear = rear->prev;
             // Deleting last item

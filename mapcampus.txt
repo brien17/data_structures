@@ -15,8 +15,8 @@ Gemini&GreekPark        Gemini          Gemini&KnightCt         East            
 WestGarage              Gemini          Centaurus&Gemini        Northeast       0.05    35
 WestGarage              Gemini          Gemini&Lynx             Southwest       0.05    35
 Gemini&Lynx             Lynx            LynxStation             East            0.1     25
-Gemini&Lynx		Gemini		WestGarage		North		0.05	35
-Gemini&Lynx		Gemini		Gemini&University	South		0.1	35
+Gemini&Lynx		        Gemini		    WestGarage		        North		    0.05	35
+Gemini&Lynx		        Gemini		    Gemini&University	    South		    0.1	    35
 LynxStation             Lynx            Gemini&Lynx             West            0.1     25
 Gemini&University       Gemini          Gemini&Lynx             Northwest       0.15    35
 Gemini&University       University      Alafaya&University      Southwest       0.15    45

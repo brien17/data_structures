@@ -21,7 +21,7 @@ public:
         msort(A, TA, 0, A.size()-1);
     }
 
-    static void msort(std::vector<std::string> &A, std::vector<std::string> TA, int left, int right) {
+    static void msort(std::vector<std::string> &A, std::vector<std::string> &TA, int left, int right) {
         int center;
 
         if (left < right) {
@@ -32,7 +32,7 @@ public:
         }
     }
 
-    static void msort(std::vector<int> &A, std::vector<int> TA, int left, int right) {
+    static void msort(std::vector<int> &A, std::vector<int> &TA, int left, int right) {
         int center;
 
         if (left < right) {
@@ -43,7 +43,7 @@ public:
         }
     }
 
-    static void merge(std::vector<std::string> &A, std::vector<std::string> TA, int left, int right, int right_end) {
+    static void merge(std::vector<std::string> &A, std::vector<std::string> &TA, int left, int right, int right_end) {
 
         int left_end = right - 1;
         int temp = left;
@@ -65,12 +65,13 @@ public:
             TA[temp++] = A[right++];
         }
 
-        for (int i = 0; i < TA.size(); i++) {
-            A[i] = TA[i];
+        for (int i = 0; i < n; i++) {
+            A[right_end] = TA[right_end];
+            --right_end;
         }
     }
 
-    static void merge(std::vector<int> &A, std::vector<int> TA, int left, int right, int right_end) {
+    static void merge(std::vector<int> &A, std::vector<int> &TA, int left, int right, int right_end) {
 
         int left_end = right - 1;
         int temp = left;
