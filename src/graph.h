@@ -105,7 +105,7 @@ public:
                 add_vertex(intersection);
             }
 
-            std:: cout << binary_searcher::binary_search_string(intersections_vect, "Centaurus&Gemini");
+            std:: cout << intersections_vect[binary_searcher::binary_search_string(intersections_vect, "Centaurus&Gemini")];
 
 
         } else {

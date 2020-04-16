@@ -15,21 +15,21 @@ public:
 
         int index, f, r;
         f = 0;
-        r = list.size();
-        while (r-f < 1) {
-            int mid = (r+f) /2;
-            if (list[mid].compare(value) > 0) {
+        r = list.size() - 1;
+        while (r-f > 1) {
+            int mid = (r+f) / 2;
+            if (list[mid].compare(value) < 0) {
                 f = mid + 1;
             } else {
                 r = mid;
             }
         }
-        if (list[f] == value) {
+        if (list[f].compare(value) == 0) {
             index = f;
-        } else if (list[r] == value) {
+        } else if (list[r].compare(value) == 0) {
             index = r;
         } else {
-            index = 0;
+            index = -1;
         }
 
         return index;
