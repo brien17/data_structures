@@ -92,6 +92,8 @@ int main() {
             std::stringstream stream(input);
             stream >> start >> end;
 
+            std::cout << path_finder::get_vertex_from_string(start, g->get_graph()) << path_finder::get_vertex_from_string(end, g->get_graph());
+
             // Shortest path
             path_finder::weighted_shortest(start, end, *g);
 

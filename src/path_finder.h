@@ -47,7 +47,7 @@ public:
             }
 
             // Setting the distance of the starting point to zero
-            tables[0].dist = 0;
+            tables[starting_vertex].dist = 0;
 
             while (!positions.empty()) {
 
@@ -71,7 +71,7 @@ public:
             // Holds the directions to give
             std::vector<std::string> directions;
 
-            while (!ending_vertex == starting_vertex) {
+            while (ending_vertex != starting_vertex) {
                 // Getting the correct edge
                 edge street;
                 for (edge e : my_graph[tables[ending_vertex].path].connections) {
@@ -125,7 +125,7 @@ public:
             }
 
             // Setting the distance of the starting point to zero
-            tables[0].dist = 0;
+            tables[starting_vertex].dist = 0;
 
             while (!positions.empty()) {
 
@@ -150,7 +150,7 @@ public:
             // Holds the directions to give
             std::vector<std::string> directions;
 
-            while (!ending_vertex == starting_vertex) {
+            while (ending_vertex != starting_vertex) {
                 // Getting the correct edge
                 edge street;
                 for (edge e : my_graph[tables[ending_vertex].path].connections) {
