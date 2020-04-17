@@ -8,9 +8,9 @@
 #include <iostream>
 
 struct node {
-    int int_data = 0;
-    void *pnt_data = nullptr;
-    std::string string_data = "";
+    int int_data;
+    void *pnt_data;
+    std::string string_data;
     bool is_int;
     node *next = nullptr;
     node *prev = nullptr;
@@ -134,7 +134,7 @@ public:
         node *n = new node;
         n->is_int = false;
         // Adding the data
-        n->pnt_data = &new_data;
+        n->pnt_data = new_data;
         if (rear == nullptr) { // Case empty list
             // Setting the front and rear
             front = rear = n;

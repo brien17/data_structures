@@ -4,6 +4,7 @@
 
 #ifndef DATA_STRUCTURES_GRAPH_H
 #define DATA_STRUCTURES_GRAPH_H
+
 #include "double_linked_list.h"
 #include "merge_sorter.h"
 #include "binary_searcher.h"
@@ -16,13 +17,20 @@
 #include <cmath>
 #include <algorithm>
 #include <cctype>
+#include <ios>
 
-struct graph_node {
-    std::string intersection;
+
+struct edge {
+    std::string street_name;
     std::string direction;
-    int distance;
+    double distance;
     int speed_limit;
-    double_linked_list connections;
+    int end_vertex;
+};
+
+struct vertex {
+    std::string intersection;
+    std::vector<edge> connections;
 
 };
 
@@ -30,42 +38,48 @@ struct graph_node {
 class graph {
 private:
     int size;
-    std::vector<graph_node> my_graph;
+    std::vector<vertex> my_graph;
 public:
     int get_size() {
         return size;
     }
 
-    std::vector<graph_node> get_graph() {
+    std::vector<vertex> get_graph() {
         return my_graph;
     }
 
     void add_vertex(std::string name) {
-        auto temp = new graph_node();
+        auto temp = new vertex();
         temp->intersection = name;
         my_graph.push_back(*temp);
         size++;
     }
 
-    void add_connection(int start_vertex, int end_vertex) {
-        my_graph[start_vertex].connections.insert_rear(end_vertex);
+    void add_connection(int start_vertex, int end_vertex, std::string street, std::string dir, double dist, int speed) {
+        auto temp = new edge();
+        temp->street_name = street;
+        temp->direction = dir;
+        temp->distance = dist;
+        temp->speed_limit = speed;
+        temp->end_vertex = end_vertex;
+        my_graph[start_vertex].connections.push_back(*temp);
     }
 
-    void print() {
-        for (int i = 1; i < my_graph.size(); i++) {
-            std::cout << i;
-            while (true) {
-                int connection = my_graph[i].connections.remove_front_int();
-                if (connection == -1) {
-                    break;
-                } else {
-                    std::cout << " " << connection;
-
-                }
-            }
-            std::cout << '\n';
-        }
-    }
+//    void print() {
+//        for (int i = 1; i < my_graph.size(); i++) {
+//            std::cout << i;
+//            while (true) {
+//                int connection = my_graph[i].connections.remove_front_int();
+//                if (connection == -1) {
+//                    break;
+//                } else {
+//                    std::cout << " " << connection;
+//
+//                }
+//            }
+//            std::cout << '\n';
+//        }
+//    }
 
     void read_file(std::string const &file_path) {
         std::string line;
@@ -77,6 +91,7 @@ public:
 
         if (my_file.is_open()) {
 
+            // Looping to create vertices
             while (getline(my_file, line)) {
                 // Creating variable to hold intersection
                 std::string intersection;
@@ -91,8 +106,6 @@ public:
                 intersections.insert(intersection);
 
             }
-            // Closing resources
-            my_file.close();
 
             // Copy set to vector
             intersections_vect.assign(intersections.begin(), intersections.end());
@@ -105,13 +118,37 @@ public:
                 add_vertex(intersection);
             }
 
-            std:: cout << intersections_vect[binary_searcher::binary_search_string(intersections_vect, "Centaurus&Gemini")];
+            // Closing file
+            my_file.close();
 
+            std::ifstream my_file2(file_path);
+
+            // Looping to create edges
+            while (getline(my_file2, line)) {
+                // Creating variables to hold data
+                std::string start_intersection, end_intersection, street_name, direction, dist_temp, speed_temp;
+                double distance;
+                int speed_limit;
+
+                // Getting stream
+                std::stringstream stream(line);
+
+                // Splitting on whitespace for string
+                my_file2 >> start_intersection >> street_name >> end_intersection >> direction >> dist_temp >> speed_temp;
+                distance = std::stod(dist_temp);
+                speed_limit = std::stoi(speed_temp);
+
+                // Adding the connection
+                add_connection(binary_searcher::binary_search_string(intersections_vect, start_intersection),
+                               binary_searcher::binary_search_string(intersections_vect, end_intersection),
+                               street_name, direction, distance, speed_limit);
+            }
+
+            // Closing file
+            my_file2.close();
 
         } else {
-
             std::cout << "Unable to open file";
-
         }
     }
 };

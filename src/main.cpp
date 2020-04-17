@@ -67,21 +67,38 @@ int main() {
 //    p->unweighted(1, *my_graph);
 //
 //  Homework 3
-    std::vector<std::string> A;
-    A.push_back("ste");
-    A.push_back("ave");
 
-
-
-    merge_sorter::sort(A);
-
-    std::cout << A[0] << A[1] << std::endl;
-
+    // Creating a graph from the file
     graph *g = new graph();
     g->read_file("../mapcampus.txt");
 
-    std::vector<graph_node> vec = g->get_graph();
+    while (true) {
 
+        std::cout << '\n'
+                  << "Enter the starting intersection and the ending intersection to begin routing and c to exit"
+                  << '\n';
+
+        std::string input;
+
+        std::getline(std::cin, input);
+
+        if (input.compare("c") == 0) {
+            break;
+        } else {
+            // Creating variables
+            std::string start, end;
+
+            // Splitting on white space
+            std::stringstream stream(input);
+            stream >> start >> end;
+
+            // Shortest path
+            path_finder::weighted_shortest(start, end, *g);
+
+            // Fastest path
+            path_finder::weighted_fastest(start, end, *g);
+        }
+    }
 
 
     return 0;
