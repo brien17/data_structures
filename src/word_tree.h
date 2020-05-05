@@ -18,7 +18,7 @@
 
 
 /**
- * This struct represents one noed in the tree, it contains a linked list to hold the line numbers for each word,
+ * This struct represents one node in the tree, it contains a linked list to hold the line numbers for each word,
  * the word itself, and pointers to the left and right children for the node.
  */
 struct tree_node {
@@ -41,13 +41,22 @@ private:
 
 public:
 
-    // Get the max of 2 numbers
-    int max(int a, int b) {
+    /**
+     * This method compares two ints and returns the larger of the two ints.
+     * @param a The first int
+     * @param b The second int
+     * @return The larger of the two ints
+     */
+    static int max(int a, int b) {
         return ((a > b) ? a : b);
     }
 
-    // Gets the height of a node passed in
-    int node_height(tree_node *T) {
+    /**
+     * This method gets the height of a node passed in.
+     * @param T The node to get the height of
+     * @return The height of the node
+     */
+    static int node_height(tree_node *T) {
         if (T == nullptr)
             return 0;
 
@@ -58,8 +67,11 @@ public:
         return 1 + max(lh, rh);
     }
 
-    // Single rotate to the left
-    void single_rotate_left(tree_node **T) {
+    /**
+     * This method performs a single rotation to the left.
+     * @param T The nod to rotate around
+     */
+    static void single_rotate_left(tree_node **T) {
         tree_node *K1, *K2;
         K2 = *T;
         K1 = (*T)->Lchild;
@@ -68,8 +80,11 @@ public:
         *T = K1;
     }
 
-    // Single rotate to the right
-    void single_rotate_right(tree_node **T) {
+    /**
+     * This method performs a single rotation to the right.
+     * @param T The nod to rotate around
+     */
+    static void single_rotate_right(tree_node **T) {
         tree_node *K1, *K2;
         K2 = *T;
         K1 = (*T)->Rchild;
@@ -78,19 +93,32 @@ public:
         *T = K1;
     }
 
-    // Double rotate to the right
-    void double_rotate_right(tree_node **T) {
+    /**
+     * This method performs a double rotation to the right.
+     * @param T The nod to rotate around
+     */
+    static void double_rotate_right(tree_node **T) {
         single_rotate_left(&((*T)->Rchild));
         single_rotate_right(T);
     }
 
-    // Double rotate to the left
-    void double_rotate_left(tree_node **T) {
+    /**
+     * This method performs a double rotation to the left.
+     * @param T The nod to rotate around
+     */
+    static void double_rotate_left(tree_node **T) {
         single_rotate_right(&((*T)->Lchild));
         single_rotate_left(T);
     }
 
-    // Insert into the tree a word and the line number that the word is on
+    /**
+     * This method takes in a pointer to the root of a tree, a word, and a line number, if the word is not in the tree
+     * it creates a new tree nude with the word and the line number, if the word is in the tree it adds the line number
+     * to the double linked list in for the node that of that word.
+     * @param T A pointer to the root node of the tree
+     * @param word_to_insert The word to be inserted into the tree
+     * @param line_number The line number to be inserted into the tree
+     */
     void insert(tree_node **T, std::string word_to_insert, int line_number) {
         // Making all of the words lower case
         std::transform(word_to_insert.begin(), word_to_insert.end(), word_to_insert.begin(), ::tolower);
@@ -130,7 +158,11 @@ public:
         }
     }
 
-    void print_tree(tree_node *T) {
+    /**
+     * This method prints out each entry in the tree and the lines that they are on in alphabetical order.
+     * @param T A pointer to the root node of the tree
+     */
+    static void print_tree(tree_node *T) {
         if (T != nullptr) {
             print_tree((T)->Rchild);
 
@@ -151,6 +183,10 @@ public:
         }
     }
 
+    /**
+     * This method creates a word tree out of all of the contents of a file
+     * @param file_path The path to the file
+     */
     void read_file(std::string const &file_path) {
         std::string line;
         std::ifstream my_file(file_path);

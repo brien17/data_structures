@@ -19,7 +19,10 @@
 #include <cctype>
 #include <ios>
 
-
+/**
+ * This struct functions as an edge in the graph and represents a street in the map. It contains the street name,
+ * direction, distance, speed limit, and ending vertex for the street that it is representing.
+ */
 struct edge {
     std::string street_name;
     std::string direction;
@@ -28,6 +31,11 @@ struct edge {
     int end_vertex;
 };
 
+
+/**
+ * This struct functions as a vertex in the graph and represents an intersection on the map. It contains the
+ * intersection name and vector of the edges that it has.
+ */
 struct vertex {
     std::string intersection;
     std::vector<edge> connections;
@@ -35,27 +43,49 @@ struct vertex {
 };
 
 
+/**
+ * This class contains a graph and the methods that operate the graph. The graph is used to model streets and \
+ * intersections for a map.
+ */
 class graph {
 private:
-    int size;
+    // The graph object
     std::vector<vertex> my_graph;
 public:
-    int get_size() {
-        return size;
-    }
 
+    /**
+     * This method is a getter for the my_graph field.
+     * @return The my_graph field
+     */
     std::vector<vertex> get_graph() {
         return my_graph;
     }
 
-    void add_vertex(std::string name) {
+    /**
+     * This method allows you to add a vertex to the graph
+     * @param name
+     */
+    void add_vertex(std::string &name) {
         auto temp = new vertex();
         temp->intersection = name;
         my_graph.push_back(*temp);
-        size++;
     }
 
-    void add_connection(int start_vertex, int end_vertex, std::string street, std::string dir, double dist, int speed) {
+    /**
+     * This method allows you to add an edge to the graph.
+     * @param start_vertex The starting vertex of the edge
+     * @param end_vertex The ending vertex of the edge
+     * @param street The street name of the edge
+     * @param dir The cardinal direction the edge goes in
+     * @param dist The length of the edge
+     * @param speed The speed limit for the edge
+     */
+    void add_edge(int start_vertex,
+                        int end_vertex,
+                        std::string &street,
+                        std::string &dir,
+                        double dist,
+                        int speed) {
         auto temp = new edge();
         temp->street_name = street;
         temp->direction = dir;
@@ -65,22 +95,11 @@ public:
         my_graph[start_vertex].connections.push_back(*temp);
     }
 
-//    void print() {
-//        for (int i = 1; i < my_graph.size(); i++) {
-//            std::cout << i;
-//            while (true) {
-//                int connection = my_graph[i].connections.remove_front_int();
-//                if (connection == -1) {
-//                    break;
-//                } else {
-//                    std::cout << " " << connection;
-//
-//                }
-//            }
-//            std::cout << '\n';
-//        }
-//    }
 
+    /**
+     * This method reads from a file and creates a graph based on the information in the file.
+     * @param file_path The path to the file
+     */
     void read_file(std::string const &file_path) {
         std::string line;
         std::ifstream my_file(file_path);
@@ -134,12 +153,13 @@ public:
                 std::stringstream stream(line);
 
                 // Splitting on whitespace for string
-                my_file2 >> start_intersection >> street_name >> end_intersection >> direction >> dist_temp >> speed_temp;
+                my_file2 >> start_intersection >> street_name >> end_intersection >> direction >> dist_temp
+                         >> speed_temp;
                 distance = std::stod(dist_temp);
                 speed_limit = std::stoi(speed_temp);
 
                 // Adding the connection
-                add_connection(binary_searcher::binary_search_string(intersections_vect, start_intersection),
+                add_edge(binary_searcher::binary_search_string(intersections_vect, start_intersection),
                                binary_searcher::binary_search_string(intersections_vect, end_intersection),
                                street_name, direction, distance, speed_limit);
             }

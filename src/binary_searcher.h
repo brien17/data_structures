@@ -20,7 +20,7 @@ public:
      * @param value The value ot be searched for
      * @return The int of the position of the value in the list
      */
-    static int binary_search_string(std::vector<std::string> list, std::string value) {
+    static int binary_search_string(std::vector<std::string> list, std::string &value) {
 
         int index, f, r;
         f = 0;
@@ -33,9 +33,9 @@ public:
                 r = mid;
             }
         }
-        if (list[f].compare(value) == 0) {
+        if (list[f] == value) {
             index = f;
-        } else if (list[r].compare(value) == 0) {
+        } else if (list[r] == value) {
             index = r;
         } else {
             index = -1;

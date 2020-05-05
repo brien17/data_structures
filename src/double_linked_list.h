@@ -25,19 +25,17 @@ struct node {
 class double_linked_list {
 
 private:
-    node *front;
-    node *rear;
-    int size;
+    node *front = nullptr;
+    node *rear = nullptr;
+    int size = 0;
 
 
 public:
-    double_linked_list() {
-        front = nullptr;
-        rear = nullptr;
-        size = 0;
-    };
 
-
+    /**
+     * This method allows you to insert an int into the front of the double linked list.
+     * @param new_data The int to insert
+     */
     void insert_front(int new_data) {
         node *n = new node;
 
@@ -61,6 +59,10 @@ public:
         }
     }
 
+    /**
+     * This method allows you to insert a void pointer into the front of the double linked list.
+     * @param new_data The void pointer to insert
+     */
     void insert_front(void *new_data) {
         node *n = new node;
         // Adding the data
@@ -83,7 +85,10 @@ public:
         }
     }
 
-
+    /**
+     * This method allows you to insert an int into the rear of the double linked list.
+     * @param new_data The int to insert
+     */
     void insert_rear(int new_data) {
         node *n = new node;
         // Adding the data
@@ -106,6 +111,10 @@ public:
         }
     }
 
+    /**
+     * This method allows you to insert a void pointer into the rear of the double linked list.
+     * @param new_data The void pointer to insert
+     */
     void insert_rear(void *new_data) {
         node *n = new node;
         // Adding the data
@@ -128,11 +137,14 @@ public:
         }
     }
 
-
+    /**
+     * This method removes the front int from the double linked list.
+     * @return The front int of the list
+     */
     int remove_front_int() {
         int hold = 0;
         if (front == nullptr) { // Case empty list
-                return -1;
+            return -1;
         } else if (front == rear) { // Case one item
             // Getting data
             hold = front->int_data;
@@ -157,6 +169,10 @@ public:
         return hold;
     }
 
+    /**
+     * This method removes the front void pointer from the double linked list
+     * @return The front void pointer of the list
+     */
     void *remove_front_pntr() {
         void *hold = nullptr;
         if (front == nullptr) { // Case empty list
@@ -185,7 +201,10 @@ public:
         return hold;
     }
 
-
+    /**
+     * This method removes the rear int from the double linked list
+     * @return The rear int of the list
+     */
     int remove_rear_int() {
         int hold = 0;
         if (rear == nullptr) { // Case empty list
@@ -214,6 +233,10 @@ public:
         return hold;
     }
 
+    /**
+     * This method removes the rear void pointer from the double linked list
+     * @return The rear void pointer of the list
+     */
     void *remove_rear_pntr() {
         void *hold = nullptr;
         if (rear == nullptr) { // Case empty list
@@ -242,11 +265,18 @@ public:
         return hold;
     }
 
-
+    /**
+     * This method returns the size of the list.
+     * @return The int of the size of the list
+     */
     int list_size() {
         return size;
     }
 
+    /**
+     * This method returns 1 if the list is empty and 0 if the list is not empty.
+     * @return 1 if the list is empty or 0 if the list is not empty
+     */
     int empty() {
         if (rear == nullptr) { // If the list is empty
             return 1;

@@ -7,7 +7,9 @@
 #include "binary_searcher.h"
 
 void homework1();
+
 void homework2();
+
 void homework3();
 
 int main() {
@@ -24,7 +26,10 @@ int main() {
     return 0;
 }
 
-void homework1(){
+/**
+ * This method has all of the code for homework 1.
+ */
+void homework1() {
     // Homework 1
     // Creating a new list
     auto *list = new double_linked_list();
@@ -63,20 +68,26 @@ void homework1(){
     std::cout << "Removing the front pointer from the list" << std::endl;
     std::cout << list->remove_front_pntr() << std::endl;
     std::cout << "List should look like [" << pnt1 << "]" << std::endl;
-    std::cout << "Checking if the list is empty (should be 0)" <<std::endl;
+    std::cout << "Checking if the list is empty (should be 0)" << std::endl;
     std::cout << list->empty() << std::endl;
     std::cout << "Removing the rear pointer from the list" << std::endl;
-    std::cout << list->remove_rear_pntr()<< std::endl;
-    std::cout << "Checking if the list is empty (should be 1)" <<std::endl;
+    std::cout << list->remove_rear_pntr() << std::endl;
+    std::cout << "Checking if the list is empty (should be 1)" << std::endl;
     std::cout << list->empty() << std::endl;
 }
 
+/**
+ * This method has all of the code for homework 2.
+ */
 void homework2() {
     auto *w = new word_tree();
     w->read_file("../test.txt");
 }
 
-void homework3(){
+/**
+ * This method has all of the code for homework 3.
+ */
+void homework3() {
     // Creating a graph from the file
     auto *g = new graph();
     g->read_file("../mapcampus.txt");
