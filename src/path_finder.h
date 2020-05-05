@@ -9,14 +9,19 @@
 #include "graph.h"
 #include <vector>
 
-using namespace std;
 
+/**
+ * This struct is used to represent the vertex in the path finding algorithm.
+ */
 struct table {
     bool known = false;
     double dist = 100000;
     int path = -1;
 };
 
+/**
+ * This class has methods to find the weighted shortest path and the weighted fastest path for the graph.
+ */
 class path_finder {
 public:
     /**
@@ -25,7 +30,7 @@ public:
      * @param ending_vertex The ending destination
      * @param G The graph
      */
-    static void weighted_shortest(std::string start, std::string end, graph G) {
+    static void weighted_shortest(std::string &start, std::string &end, graph G) {
         // Get the graph vector
         auto my_graph = G.get_graph();
 
@@ -42,7 +47,7 @@ public:
             std::vector<int> positions(my_graph.size());
 
             // Adding all of the indexes to the positions vector
-            for (int i = 0; i < tables.size(); i++) {
+            for (unsigned int i = 0; i < tables.size(); i++) {
                 positions[i] = i;
             }
 
@@ -57,8 +62,7 @@ public:
 
                 std::vector<edge> edges = my_graph[shortest].connections;
 
-                for (int i = 0; i < edges.size(); i++) {
-                    edge e = edges[i];
+                for (edge &e : edges) {
                     if (tables[shortest].dist + e.distance < tables[e.end_vertex].dist) {
                         tables[e.end_vertex].dist = tables[shortest].dist + e.distance;
                         tables[e.end_vertex].path = shortest;
@@ -74,7 +78,7 @@ public:
             while (ending_vertex != starting_vertex) {
                 // Getting the correct edge
                 edge street;
-                for (edge e : my_graph[tables[ending_vertex].path].connections) {
+                for (edge &e : my_graph[tables[ending_vertex].path].connections) {
                     if (e.end_vertex == ending_vertex) {
                         street = e;
                     }
@@ -104,7 +108,7 @@ public:
      * @param ending_vertex The ending destination
      * @param G The graph
      */
-    static void weighted_fastest(std::string start, std::string end, graph G) {
+    static void weighted_fastest(std::string &start, std::string &end, graph G) {
         // Get the graph vector
         auto my_graph = G.get_graph();
 
@@ -120,7 +124,7 @@ public:
             std::vector<int> positions(my_graph.size());
 
             // Adding all of the indexes to the positions vector
-            for (int i = 0; i < tables.size(); i++) {
+            for (unsigned int i = 0; i < tables.size(); i++) {
                 positions[i] = i;
             }
 
@@ -135,8 +139,7 @@ public:
 
                 std::vector<edge> edges = my_graph[shortest].connections;
 
-                for (int i = 0; i < edges.size(); i++) {
-                    edge e = edges[i];
+                for (edge &e : edges) {
                     if (tables[shortest].dist + (e.distance / e.speed_limit) < tables[e.end_vertex].dist) {
                         tables[e.end_vertex].dist = tables[shortest].dist + (e.distance / e.speed_limit);
                         tables[e.end_vertex].path = shortest;
@@ -153,7 +156,7 @@ public:
             while (ending_vertex != starting_vertex) {
                 // Getting the correct edge
                 edge street;
-                for (edge e : my_graph[tables[ending_vertex].path].connections) {
+                for (edge &e : my_graph[tables[ending_vertex].path].connections) {
                     if (e.end_vertex == ending_vertex) {
                         street = e;
                     }
@@ -176,6 +179,12 @@ public:
         }
     }
 
+    /**
+     * Finds the table with the smallest distance that is not known.
+     * @param positions The vector of all of the ints that reference the positions of the vertices
+     * @param t The vector of all of the tables
+     * @return The int of the position of the table with the smallest distance that is not known
+     */
     static int min_dist(std::vector<int> &positions, std::vector<table> t) {
 
         double min = t[positions[0]].dist;
@@ -199,10 +208,17 @@ public:
         return position;
     }
 
-    static int get_vertex_from_string(std::string str, vector<vertex> g) {
+    /**
+     * This method finds the vertex that corresponds to the intersection passed as a string and returns an int of the
+     * position of that vertex.
+     * @param str The intersection that you want the vertex of
+     * @param g The vector containing all of the vertices
+     * @return The position of that vertex in the vector of the vertices
+     */
+    static int get_vertex_from_string(std::string &str, std::vector<vertex> g) {
         int return_val = -1;
-        for (int i = 0; i < g.size(); i++) {
-            if (g[i].intersection.compare(str) == 0) {
+        for (unsigned int i = 0; i < g.size(); i++) {
+            if (g[i].intersection == str) {
                 return_val = i;
             }
         }

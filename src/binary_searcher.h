@@ -9,8 +9,17 @@
 #include <string>
 #include <vector>
 
+/**
+ * This class has a method that performs a binary search on an vector of strings.
+ */
 class binary_searcher {
 public:
+    /**
+     * This method performs a binary search on a vector of strings and returns the position of the string.
+     * @param list The vector of strings to search
+     * @param value The value ot be searched for
+     * @return The int of the position of the value in the list
+     */
     static int binary_search_string(std::vector<std::string> list, std::string value) {
 
         int index, f, r;

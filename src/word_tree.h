@@ -17,22 +17,29 @@
 #include <cctype>
 
 
-
-
+/**
+ * This struct represents one noed in the tree, it contains a linked list to hold the line numbers for each word,
+ * the word itself, and pointers to the left and right children for the node.
+ */
 struct tree_node {
     double_linked_list *lines;
     std::string word = "";
     tree_node *Lchild;
     tree_node *Rchild;
-    int height = 0;
 };
 
+/**
+ * This class represents the binary search tree to hold the words from the file. It has methods that allow for it
+ * to get all of the words from a file and to put them into a tree, for printing the words from the tree, and for
+ * the maintenance of the tree.
+ */
 class word_tree {
-private:
 
-public:
+private:
     // Double pointer to the root of the tree
     tree_node *root = nullptr;
+
+public:
 
     // Get the max of 2 numbers
     int max(int a, int b) {
@@ -59,8 +66,6 @@ public:
         K2->Lchild = K1->Rchild;
         K1->Rchild = K2;
         *T = K1;
-        K1->height = node_height(K1);
-        K2->height = node_height(K2);
     }
 
     // Single rotate to the right
@@ -71,8 +76,6 @@ public:
         K2->Rchild = K1->Lchild;
         K1->Lchild = K2;
         *T = K1;
-        K1->height = node_height(K1);
-        K2->height = node_height(K2);
     }
 
     // Double rotate to the right
